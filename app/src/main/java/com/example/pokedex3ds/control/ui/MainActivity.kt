@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var mBinding : ActivityMainBinding
     private val mViewModel : ControlViewModel by viewModels()
+    private var position = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,10 +39,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun initOnClickListeners() {
         mBinding.ibtnUp.setOnClickListener {
-            mViewModel.scrollUp()
+            position - 1
+            mViewModel.scrollUp(position)
         }
         mBinding.ibtnDown.setOnClickListener {
-            mViewModel.scrollDown()
+            position + 1
+            mViewModel.scrollDown(position)
         }
 
         mBinding.btnA.setOnClickListener{

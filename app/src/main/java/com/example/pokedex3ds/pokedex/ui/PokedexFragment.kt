@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.pokedex3ds.control.ui.ControlViewModel
 import com.example.pokedex3ds.databinding.FragmentPokedexBinding
 import com.example.pokedex3ds.pokedex.data.network.model.PokemonList
 import com.example.pokedex3ds.pokedex.ui.adapters.PokedexAdapter.PokedexAdapter
@@ -20,6 +21,7 @@ class PokedexFragment : Fragment() {
 
     private lateinit var mBinding : FragmentPokedexBinding
     private val pokedexViewModel : PokedexViewModel by viewModels()
+    private val controlViewModel : ControlViewModel by viewModels()
     private lateinit var pokedexAdapter: PokedexAdapter
     private lateinit var photoAdapter : PhotoAdapter
 
@@ -39,10 +41,17 @@ class PokedexFragment : Fragment() {
 
     private fun initUI() {
         getPokemonList()
-        initObservers()
+        initObserversPokedex()
+        initObserversControl()
     }
 
-    private fun initObservers() {
+    private fun initObserversControl() {
+        controlViewModel.rvScroll.observe(viewLifecycleOwner){
+            mBinding.rvNumberAndName.scrollToPosition(it)
+        }
+    }
+
+    private fun initObserversPokedex() {
         pokedexViewModel.isLoading.observe(viewLifecycleOwner){
             mBinding.pbLoading.isVisible = it
         }
