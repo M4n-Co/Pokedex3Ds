@@ -1,5 +1,7 @@
 package com.example.pokedex3ds.pokedex.ui.adapters.photoAdapter
 
+import android.util.Log
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.pokedex3ds.databinding.ItemPokemonPhotoBinding

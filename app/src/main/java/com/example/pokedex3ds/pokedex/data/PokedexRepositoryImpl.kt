@@ -9,6 +9,7 @@ import javax.inject.Inject
 class PokedexRepositoryImpl @Inject constructor (
     private val pokedexService: PokedexService
 ) : PokedexRepository {
+
     override suspend fun getPokemonList(): Response<PokedexModel> {
         return pokedexService.getPokemonList()
     }

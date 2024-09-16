@@ -20,7 +20,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.473"
+            app:layout_constraintVertical_bias="1.0"
             tools:itemCount="3"
             tools:listitem="@layout/item_pokemon_photo" />
 
@@ -35,7 +35,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/rvPokemonPhoto"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.473"
+            app:layout_constraintVertical_bias="0.526"
             tools:itemCount="15"
             tools:listitem="@layout/item_pokemon_name" />
 
@@ -46,6 +46,7 @@
         android:id="@+id/pbLoading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

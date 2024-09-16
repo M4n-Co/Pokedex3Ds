@@ -41,19 +41,67 @@
         app:layout_constraintStart_toEndOf="@id/ivPokemonPhoto"
         app:layout_constraintTop_toBottomOf="@id/tvNomAndName" />
 
-    <TextView
+    <LinearLayout
         android:id="@+id/tvGender"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:gravity="center"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/ivPokemonPhoto"
-        app:layout_constraintTop_toBottomOf="@id/mdFirst"
-        tools:text="Macho"/>
+        app:layout_constraintTop_toBottomOf="@id/mdFirst">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mcvTypeOne"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="@color/black"
+            android:layout_marginEnd="8dp"
+            app:strokeColor="@color/white"
+            app:strokeWidth="3dp">
+
+            <TextView
+                android:id="@+id/tvTypeOne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:paddingVertical="3dp"
+                tools:text="graas"/>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mcvTypeTwo"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="@color/black"
+            app:strokeColor="@color/white"
+            app:strokeWidth="3dp"
+            >
+
+            <TextView
+                android:id="@+id/tvTypeTwo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="3dp"
+                tools:text="graas"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+    </LinearLayout>
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/mdSecond"
@@ -128,5 +176,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/mdFourth"/>
+
+    <ProgressBar
+
+        android:id="@+id/pbLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

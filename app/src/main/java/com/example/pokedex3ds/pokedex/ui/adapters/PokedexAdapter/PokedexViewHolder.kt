@@ -6,10 +6,12 @@ import com.example.pokedex3ds.pokedex.data.network.model.PokemonList
 
 class PokedexViewHolder (private val mBinding : ItemPokemonNameBinding): RecyclerView.ViewHolder(mBinding.root) {
 
-    fun bind(item : PokemonList){
+
+    fun bind(
+        item: PokemonList,
+    ){
         val namePokemon = item.name
         val number = getNumero(item.url)
-
         mBinding.tvPokemonName.text = "$number $namePokemon"
 
     }

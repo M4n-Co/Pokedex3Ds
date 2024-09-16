@@ -1,6 +1,7 @@
 package com.example.pokedex3ds.control.ui
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,8 @@ import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.example.pokedex3ds.R
 import com.example.pokedex3ds.databinding.ActivityMainBinding
+import com.example.pokedex3ds.pokedex.data.network.model.PokemonList
+import com.example.pokedex3ds.pokedex.ui.PokedexFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mBinding : ActivityMainBinding
     private val mViewModel : ControlViewModel by viewModels()
     private var position = 0
+    private  lateinit var mPokemonList: List<PokemonList>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,20 +39,32 @@ class MainActivity : AppCompatActivity() {
 
     private fun initUI() {
         initOnClickListeners()
+        initOnObserversControl()
+    }
+
+    private fun initOnObserversControl() {
+        mViewModel.pokemosVM.observe(this){ list ->
+            mPokemonList = list
+        }
     }
 
     private fun initOnClickListeners() {
         mBinding.ibtnUp.setOnClickListener {
-            position - 1
-            mViewModel.scrollUp(position)
+            if(position >= 1){
+                position -= 1
+                mViewModel.scrollUp(position)
+            }
         }
         mBinding.ibtnDown.setOnClickListener {
-            position + 1
-            mViewModel.scrollDown(position)
+            if(position <= 151){
+                position += 1
+                mViewModel.scrollDown(position)
+            }
         }
 
         mBinding.btnA.setOnClickListener{
-            findNavController(mBinding.fcPokedex.id).navigate(R.id.action_pokedexFragment_to_pokemonFragment)
+            val pokemon = mPokemonList[position].name
+            findNavController(mBinding.fcPokedex.id).navigate(PokedexFragmentDirections.actionPokedexFragmentToPokemonFragment(pokemon))
         }
 
         mBinding.btnB.setOnClickListener{
