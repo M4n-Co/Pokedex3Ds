@@ -1,15 +1,12 @@
 package com.example.pokedex3ds.control.ui
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import com.example.pokedex3ds.R
 import com.example.pokedex3ds.databinding.ActivityMainBinding
 import com.example.pokedex3ds.pokedex.data.network.model.PokemonList
 import com.example.pokedex3ds.pokedex.ui.PokedexFragmentDirections

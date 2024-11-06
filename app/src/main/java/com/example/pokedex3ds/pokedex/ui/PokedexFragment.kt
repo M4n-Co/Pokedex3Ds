@@ -49,8 +49,6 @@ class PokedexFragment : Fragment() {
 
     private fun initObserversControl() {
         controlViewModel.rvScroll.observe(viewLifecycleOwner){
-            //mBinding.rvNumberAndName.smoothScrollToPosition(it)
-            //mBinding.rvPokemonPhoto.smoothScrollToPosition(it)
 
             pokedexAdapter.positionSelected = it
             photoAdapter.positionSelected = it
@@ -95,7 +93,7 @@ class PokedexFragment : Fragment() {
         mBinding.rvPokemonPhoto.findViewHolderForAdapterPosition(position)?.itemView?.performClick()
     }*/
 
-    private fun centerItem(position: Int, rv : RecyclerView) {
+    fun centerItem(position: Int, rv: RecyclerView) {
         val layoutManager = rv.layoutManager as LinearLayoutManager
 
         val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
@@ -104,28 +102,45 @@ class PokedexFragment : Fragment() {
         if (position < firstVisibleItemPosition || position > lastVisibleItemPosition) {
             // El ítem no está visible, desplaza el RecyclerView
             rv.smoothScrollToPosition(position)
+
+            // Añadir un OnScrollListener para esperar hasta que el ítem sea visible
+            rv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        // Cuando el scroll se detenga, calcula el desplazamiento para centrar el ítem
+                        rv.removeOnScrollListener(this)  // Remover listener después de centrar
+                        centerVisibleItem(position, rv)
+                    }
+                }
+            })
         } else {
-            // El ítem está visible, calcula el desplazamiento para centrarlo
-            val view = layoutManager.findViewByPosition(position)
-            if (view != null) {
-                // Obtener la posición del ítem en relación al RecyclerView
-                val itemTop = view.top
-                val itemBottom = view.bottom
-
-                // Obtener el tamaño del RecyclerView
-                val recyclerViewHeight = rv.height
-
-                // Calcular la mitad del tamaño del RecyclerView y del ítem
-                val recyclerViewCenter = recyclerViewHeight / 2
-                val itemCenter = (itemTop + itemBottom) / 2
-
-                // Calcular el desplazamiento necesario para centrar el ítem
-                val offset = itemCenter - recyclerViewCenter
-
-                // Realizar el scroll para centrar el ítem
-                rv.smoothScrollBy(0, offset)
-            }
+            // El ítem ya está visible, centramos directamente
+            centerVisibleItem(position, rv)
         }
+    }
+
+    fun centerVisibleItem(position: Int, rv: RecyclerView) {
+        val layoutManager = rv.layoutManager as LinearLayoutManager
+        val view = layoutManager.findViewByPosition(position)
+        if (view != null) {
+            // Obtener la posición del ítem en relación al RecyclerView
+            val itemTop = view.top
+            val itemBottom = view.bottom
+
+            // Obtener el tamaño del RecyclerView
+            val recyclerViewHeight = rv.height
+
+            // Calcular la mitad del tamaño del RecyclerView y del ítem
+            val recyclerViewCenter = recyclerViewHeight / 2
+            val itemCenter = (itemTop + itemBottom) / 2
+
+            // Calcular el desplazamiento necesario para centrar el ítem
+            val offset = itemCenter - recyclerViewCenter
+
+            // Realizar el scroll para centrar el ítem
+            rv.smoothScrollBy(0, offset)
+        }
+
         rv.findViewHolderForAdapterPosition(position)?.itemView?.performClick()
     }
 
